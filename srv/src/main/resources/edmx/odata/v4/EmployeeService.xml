@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="EmployeeService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Employees" EntityType="EmployeeService.Employees">
+          <NavigationPropertyBinding Path="department" Target="Departments"/>
+          <NavigationPropertyBinding Path="position" Target="Positions"/>
+          <NavigationPropertyBinding Path="address" Target="Addresses"/>
+          <NavigationPropertyBinding Path="salary" Target="Salaries"/>
+          <NavigationPropertyBinding Path="contactDetails" Target="ContactDetails"/>
+          <NavigationPropertyBinding Path="projects" Target="EmployeeProjects"/>
+        </EntitySet>
+        <EntitySet Name="Departments" EntityType="EmployeeService.Departments"/>
+        <EntitySet Name="Positions" EntityType="EmployeeService.Positions"/>
+        <EntitySet Name="Addresses" EntityType="EmployeeService.Addresses"/>
+        <EntitySet Name="Salaries" EntityType="EmployeeService.Salaries">
+          <NavigationPropertyBinding Path="employee" Target="Employees"/>
+        </EntitySet>
+        <EntitySet Name="ContactDetails" EntityType="EmployeeService.ContactDetails">
+          <NavigationPropertyBinding Path="employee" Target="Employees"/>
+        </EntitySet>
+        <EntitySet Name="Projects" EntityType="EmployeeService.Projects">
+          <NavigationPropertyBinding Path="employees" Target="EmployeeProjects"/>
+        </EntitySet>
+        <EntitySet Name="EmployeeProjects" EntityType="EmployeeService.EmployeeProjects">
+          <NavigationPropertyBinding Path="employee" Target="Employees"/>
+          <NavigationPropertyBinding Path="project" Target="Projects"/>
+        </EntitySet>
+      </EntityContainer>
+      <EntityType Name="Employees">
+        <Key>
+          <PropertyRef Name="employeeID"/>
+        </Key>
+        <Property Name="employeeID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="firstName" Type="Edm.String"/>
+        <Property Name="lastName" Type="Edm.String"/>
+        <Property Name="dateOfBirth" Type="Edm.Date"/>
+        <NavigationProperty Name="department" Type="EmployeeService.Departments">
+          <ReferentialConstraint Property="department_departmentID" ReferencedProperty="departmentID"/>
+        </NavigationProperty>
+        <Property Name="department_departmentID" Type="Edm.Int32"/>
+        <NavigationProperty Name="position" Type="EmployeeService.Positions">
+          <ReferentialConstraint Property="position_positionID" ReferencedProperty="positionID"/>
+        </NavigationProperty>
+        <Property Name="position_positionID" Type="Edm.Int32"/>
+        <NavigationProperty Name="address" Type="EmployeeService.Addresses">
+          <ReferentialConstraint Property="address_addressID" ReferencedProperty="addressID"/>
+        </NavigationProperty>
+        <Property Name="address_addressID" Type="Edm.Int32"/>
+        <NavigationProperty Name="salary" Type="EmployeeService.Salaries">
+          <ReferentialConstraint Property="salary_salaryID" ReferencedProperty="salaryID"/>
+        </NavigationProperty>
+        <Property Name="salary_salaryID" Type="Edm.Int32"/>
+        <NavigationProperty Name="contactDetails" Type="EmployeeService.ContactDetails">
+          <ReferentialConstraint Property="contactDetails_contactID" ReferencedProperty="contactID"/>
+        </NavigationProperty>
+        <Property Name="contactDetails_contactID" Type="Edm.Int32"/>
+        <NavigationProperty Name="projects" Type="EmployeeService.EmployeeProjects">
+          <ReferentialConstraint Property="projects_employeeProjectID" ReferencedProperty="employeeProjectID"/>
+        </NavigationProperty>
+        <Property Name="projects_employeeProjectID" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="Departments">
+        <Key>
+          <PropertyRef Name="departmentID"/>
+        </Key>
+        <Property Name="departmentID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Positions">
+        <Key>
+          <PropertyRef Name="positionID"/>
+        </Key>
+        <Property Name="positionID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="title" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Addresses">
+        <Key>
+          <PropertyRef Name="addressID"/>
+        </Key>
+        <Property Name="addressID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="street" Type="Edm.String"/>
+        <Property Name="city" Type="Edm.String"/>
+        <Property Name="state" Type="Edm.String"/>
+        <Property Name="postalCode" Type="Edm.String"/>
+        <Property Name="country" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Salaries">
+        <Key>
+          <PropertyRef Name="salaryID"/>
+        </Key>
+        <Property Name="salaryID" Type="Edm.Int32" Nullable="false"/>
+        <NavigationProperty Name="employee" Type="EmployeeService.Employees">
+          <ReferentialConstraint Property="employee_employeeID" ReferencedProperty="employeeID"/>
+        </NavigationProperty>
+        <Property Name="employee_employeeID" Type="Edm.Int32"/>
+        <Property Name="amount" Type="Edm.Decimal" Scale="variable"/>
+        <Property Name="currency" Type="Edm.String"/>
+        <Property Name="startDate" Type="Edm.Date"/>
+        <Property Name="endDate" Type="Edm.Date"/>
+      </EntityType>
+      <EntityType Name="ContactDetails">
+        <Key>
+          <PropertyRef Name="contactID"/>
+        </Key>
+        <Property Name="contactID" Type="Edm.Int32" Nullable="false"/>
+        <NavigationProperty Name="employee" Type="EmployeeService.Employees">
+          <ReferentialConstraint Property="employee_employeeID" ReferencedProperty="employeeID"/>
+        </NavigationProperty>
+        <Property Name="employee_employeeID" Type="Edm.Int32"/>
+        <Property Name="email" Type="Edm.String"/>
+        <Property Name="phone" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Projects">
+        <Key>
+          <PropertyRef Name="projectID"/>
+        </Key>
+        <Property Name="projectID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+        <NavigationProperty Name="employees" Type="EmployeeService.EmployeeProjects">
+          <ReferentialConstraint Property="employees_employeeProjectID" ReferencedProperty="employeeProjectID"/>
+        </NavigationProperty>
+        <Property Name="employees_employeeProjectID" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="EmployeeProjects">
+        <Key>
+          <PropertyRef Name="employeeProjectID"/>
+        </Key>
+        <Property Name="employeeProjectID" Type="Edm.Int32" Nullable="false"/>
+        <NavigationProperty Name="employee" Type="EmployeeService.Employees">
+          <ReferentialConstraint Property="employee_employeeID" ReferencedProperty="employeeID"/>
+        </NavigationProperty>
+        <Property Name="employee_employeeID" Type="Edm.Int32"/>
+        <NavigationProperty Name="project" Type="EmployeeService.Projects">
+          <ReferentialConstraint Property="project_projectID" ReferencedProperty="projectID"/>
+        </NavigationProperty>
+        <Property Name="project_projectID" Type="Edm.Int32"/>
+        <Property Name="startDate" Type="Edm.Date"/>
+        <Property Name="endDate" Type="Edm.Date"/>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

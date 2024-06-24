@@ -1,0 +1,698 @@
+{
+  "namespace": "my.company",
+  "definitions": {
+    "my.company.Employees": {
+      "kind": "entity",
+      "elements": {
+        "employeeID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "firstName": {
+          "type": "cds.String"
+        },
+        "lastName": {
+          "type": "cds.String"
+        },
+        "dateOfBirth": {
+          "type": "cds.Date"
+        },
+        "department": {
+          "type": "cds.Association",
+          "target": "my.company.Departments",
+          "keys": [
+            {
+              "ref": [
+                "departmentID"
+              ],
+              "$generatedFieldName": "department_departmentID"
+            }
+          ]
+        },
+        "department_departmentID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "department"
+        },
+        "position": {
+          "type": "cds.Association",
+          "target": "my.company.Positions",
+          "keys": [
+            {
+              "ref": [
+                "positionID"
+              ],
+              "$generatedFieldName": "position_positionID"
+            }
+          ]
+        },
+        "position_positionID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "position"
+        },
+        "address": {
+          "type": "cds.Association",
+          "target": "my.company.Addresses",
+          "keys": [
+            {
+              "ref": [
+                "addressID"
+              ],
+              "$generatedFieldName": "address_addressID"
+            }
+          ]
+        },
+        "address_addressID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "address"
+        },
+        "salary": {
+          "type": "cds.Association",
+          "target": "my.company.Salaries",
+          "keys": [
+            {
+              "ref": [
+                "salaryID"
+              ],
+              "$generatedFieldName": "salary_salaryID"
+            }
+          ]
+        },
+        "salary_salaryID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "salary"
+        },
+        "contactDetails": {
+          "type": "cds.Association",
+          "target": "my.company.ContactDetails",
+          "keys": [
+            {
+              "ref": [
+                "contactID"
+              ],
+              "$generatedFieldName": "contactDetails_contactID"
+            }
+          ]
+        },
+        "contactDetails_contactID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "contactDetails"
+        },
+        "projects": {
+          "type": "cds.Association",
+          "target": "my.company.EmployeeProjects",
+          "keys": [
+            {
+              "ref": [
+                "employeeProjectID"
+              ],
+              "$generatedFieldName": "projects_employeeProjectID"
+            }
+          ]
+        },
+        "projects_employeeProjectID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "projects"
+        }
+      }
+    },
+    "my.company.Departments": {
+      "kind": "entity",
+      "elements": {
+        "departmentID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "my.company.Positions": {
+      "kind": "entity",
+      "elements": {
+        "positionID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "my.company.Addresses": {
+      "kind": "entity",
+      "elements": {
+        "addressID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "street": {
+          "type": "cds.String"
+        },
+        "city": {
+          "type": "cds.String"
+        },
+        "state": {
+          "type": "cds.String"
+        },
+        "postalCode": {
+          "type": "cds.String"
+        },
+        "country": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "my.company.Salaries": {
+      "kind": "entity",
+      "elements": {
+        "salaryID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "my.company.Employees",
+          "keys": [
+            {
+              "ref": [
+                "employeeID"
+              ],
+              "$generatedFieldName": "employee_employeeID"
+            }
+          ]
+        },
+        "employee_employeeID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employee"
+        },
+        "amount": {
+          "type": "cds.Decimal"
+        },
+        "currency": {
+          "type": "cds.String"
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        }
+      }
+    },
+    "my.company.ContactDetails": {
+      "kind": "entity",
+      "elements": {
+        "contactID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "my.company.Employees",
+          "keys": [
+            {
+              "ref": [
+                "employeeID"
+              ],
+              "$generatedFieldName": "employee_employeeID"
+            }
+          ]
+        },
+        "employee_employeeID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employee"
+        },
+        "email": {
+          "type": "cds.String"
+        },
+        "phone": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "my.company.Projects": {
+      "kind": "entity",
+      "elements": {
+        "projectID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        },
+        "employees": {
+          "type": "cds.Association",
+          "target": "my.company.EmployeeProjects",
+          "keys": [
+            {
+              "ref": [
+                "employeeProjectID"
+              ],
+              "$generatedFieldName": "employees_employeeProjectID"
+            }
+          ]
+        },
+        "employees_employeeProjectID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employees"
+        }
+      }
+    },
+    "my.company.EmployeeProjects": {
+      "kind": "entity",
+      "elements": {
+        "employeeProjectID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "my.company.Employees",
+          "keys": [
+            {
+              "ref": [
+                "employeeID"
+              ],
+              "$generatedFieldName": "employee_employeeID"
+            }
+          ]
+        },
+        "employee_employeeID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employee"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "my.company.Projects",
+          "keys": [
+            {
+              "ref": [
+                "projectID"
+              ],
+              "$generatedFieldName": "project_projectID"
+            }
+          ]
+        },
+        "project_projectID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "project"
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        }
+      }
+    },
+    "EmployeeService": {
+      "@source": "service.cds",
+      "kind": "service"
+    },
+    "EmployeeService.Employees": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.Employees"
+          ]
+        }
+      },
+      "elements": {
+        "employeeID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "firstName": {
+          "type": "cds.String"
+        },
+        "lastName": {
+          "type": "cds.String"
+        },
+        "dateOfBirth": {
+          "type": "cds.Date"
+        },
+        "department": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Departments",
+          "keys": [
+            {
+              "ref": [
+                "departmentID"
+              ],
+              "$generatedFieldName": "department_departmentID"
+            }
+          ]
+        },
+        "department_departmentID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "department"
+        },
+        "position": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Positions",
+          "keys": [
+            {
+              "ref": [
+                "positionID"
+              ],
+              "$generatedFieldName": "position_positionID"
+            }
+          ]
+        },
+        "position_positionID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "position"
+        },
+        "address": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Addresses",
+          "keys": [
+            {
+              "ref": [
+                "addressID"
+              ],
+              "$generatedFieldName": "address_addressID"
+            }
+          ]
+        },
+        "address_addressID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "address"
+        },
+        "salary": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Salaries",
+          "keys": [
+            {
+              "ref": [
+                "salaryID"
+              ],
+              "$generatedFieldName": "salary_salaryID"
+            }
+          ]
+        },
+        "salary_salaryID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "salary"
+        },
+        "contactDetails": {
+          "type": "cds.Association",
+          "target": "EmployeeService.ContactDetails",
+          "keys": [
+            {
+              "ref": [
+                "contactID"
+              ],
+              "$generatedFieldName": "contactDetails_contactID"
+            }
+          ]
+        },
+        "contactDetails_contactID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "contactDetails"
+        },
+        "projects": {
+          "type": "cds.Association",
+          "target": "EmployeeService.EmployeeProjects",
+          "keys": [
+            {
+              "ref": [
+                "employeeProjectID"
+              ],
+              "$generatedFieldName": "projects_employeeProjectID"
+            }
+          ]
+        },
+        "projects_employeeProjectID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "projects"
+        }
+      }
+    },
+    "EmployeeService.Departments": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.Departments"
+          ]
+        }
+      },
+      "elements": {
+        "departmentID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "EmployeeService.Positions": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.Positions"
+          ]
+        }
+      },
+      "elements": {
+        "positionID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "EmployeeService.Addresses": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.Addresses"
+          ]
+        }
+      },
+      "elements": {
+        "addressID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "street": {
+          "type": "cds.String"
+        },
+        "city": {
+          "type": "cds.String"
+        },
+        "state": {
+          "type": "cds.String"
+        },
+        "postalCode": {
+          "type": "cds.String"
+        },
+        "country": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "EmployeeService.Salaries": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.Salaries"
+          ]
+        }
+      },
+      "elements": {
+        "salaryID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Employees",
+          "keys": [
+            {
+              "ref": [
+                "employeeID"
+              ],
+              "$generatedFieldName": "employee_employeeID"
+            }
+          ]
+        },
+        "employee_employeeID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employee"
+        },
+        "amount": {
+          "type": "cds.Decimal"
+        },
+        "currency": {
+          "type": "cds.String"
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        }
+      }
+    },
+    "EmployeeService.ContactDetails": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.ContactDetails"
+          ]
+        }
+      },
+      "elements": {
+        "contactID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Employees",
+          "keys": [
+            {
+              "ref": [
+                "employeeID"
+              ],
+              "$generatedFieldName": "employee_employeeID"
+            }
+          ]
+        },
+        "employee_employeeID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employee"
+        },
+        "email": {
+          "type": "cds.String"
+        },
+        "phone": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "EmployeeService.Projects": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.Projects"
+          ]
+        }
+      },
+      "elements": {
+        "projectID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
+        },
+        "employees": {
+          "type": "cds.Association",
+          "target": "EmployeeService.EmployeeProjects",
+          "keys": [
+            {
+              "ref": [
+                "employeeProjectID"
+              ],
+              "$generatedFieldName": "employees_employeeProjectID"
+            }
+          ]
+        },
+        "employees_employeeProjectID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employees"
+        }
+      }
+    },
+    "EmployeeService.EmployeeProjects": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "my.company.EmployeeProjects"
+          ]
+        }
+      },
+      "elements": {
+        "employeeProjectID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "employee": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Employees",
+          "keys": [
+            {
+              "ref": [
+                "employeeID"
+              ],
+              "$generatedFieldName": "employee_employeeID"
+            }
+          ]
+        },
+        "employee_employeeID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "employee"
+        },
+        "project": {
+          "type": "cds.Association",
+          "target": "EmployeeService.Projects",
+          "keys": [
+            {
+              "ref": [
+                "projectID"
+              ],
+              "$generatedFieldName": "project_projectID"
+            }
+          ]
+        },
+        "project_projectID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "project"
+        },
+        "startDate": {
+          "type": "cds.Date"
+        },
+        "endDate": {
+          "type": "cds.Date"
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v4.9.2",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}
